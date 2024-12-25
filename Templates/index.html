@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Group Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        input[type="text"], input[type="number"] {
+            width: 90%;
+            max-width: 800px;
+            height: 30px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Golf Group Generator</h1>
+    <form method="POST">
+        <label for="names">Enter each golfer, separated by commas:</label><br>
+        <input type="text" id="names" name="names" required placeholder="E.g., Alice, Bob, Charlie"><br><br>
+
+        <label for="num_rounds">How many rounds of golf would you like to play?</label><br>
+        <input type="number" id="num_rounds" name="num_rounds" min="1" required><br><br>
+
+        <button type="submit">Generate Groups</button>
+    </form>
+
+    {% if result %}
+    <div class="results">
+        <h2>Results</h2>
+        {% for round in result %}
+            <h3>Round {{ round.round }}</h3>
+            <ul>
+                {% for group in round.groups %}
+                    <li>{{ ', '.join(group) }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>
